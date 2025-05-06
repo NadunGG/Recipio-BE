@@ -22,7 +22,7 @@ export const getUserProfile = async (uid) => {
   };
 };
 
-const uploadProfilePicture = async (uid, fileBuffer, mimeType) => {
+export const uploadProfilePicture = async (uid, fileBuffer, mimeType) => {
   const file = bucket.file(`profile_pictures/${uid}.jpg`);
   await file.save(fileBuffer, { contentType: mimeType, public: true });
   const photoURL = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
@@ -30,4 +30,3 @@ const uploadProfilePicture = async (uid, fileBuffer, mimeType) => {
   return photoURL;
 };
 
-export default { uploadProfilePicture };

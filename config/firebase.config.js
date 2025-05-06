@@ -26,21 +26,19 @@ const auth = getAuth(app);
 
 let adminApp;
 let adminAuth;
-let bucket; 
+
 try {
   if (FIREBASE_SERVICE_ACCOUNT) {
     const serviceAccount = JSON.parse(FIREBASE_SERVICE_ACCOUNT);
 
     adminApp = initializeAdminApp({
       credential: cert(serviceAccount),
-      storageBucket: FIREBASE_STORAGE_BUCKET,
     });
 
     adminAuth = getAdminAuth(adminApp);
-    bucket = admin.storage().bucket();
   }
 } catch (error) {
   console.error('Error initializing Firebase Admin:', error);
 }
 
-export { auth, adminAuth, bucket };
+export { auth, adminAuth };
