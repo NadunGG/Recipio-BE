@@ -181,7 +181,7 @@ export const scanIngredients = async (req, res) => {
 
   // const { ingredients, error } = await openAIService.scanIngredientsFromImage(base64Image);
 
-  if (error) return res.status(400).json({ error });
+  // if (error) return res.status(400).json({ error });
   return res.json({ ingredients: scanMock });
 };
 
@@ -190,7 +190,7 @@ export const generateRecipes = async (req, res) => {
 
   // const { recipes, error } = await openAIService.generateRecipes(ingredients, preferences);
 
-  if (error) return res.status(400).json({ error });
+  // if (error) return res.status(400).json({ error });
   return res.json({ recipes: generateMock });
 };
 
@@ -199,7 +199,7 @@ export const getRecommendedRecipes = async (req, res) => {
 
   // const { recipes, error } = await openAIService.generateDailyRecommendations(preferences);
 
-  if (error) return res.status(400).json({ error });
+  // if (error) return res.status(400).json({ error });
   return res.json({ recipes: generateMock });
 };
 
