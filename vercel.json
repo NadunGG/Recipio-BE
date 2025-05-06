@@ -2,11 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "name": "recipio-backend",
   "version": 2,
-  "buildCommand": "",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "server.js"
+      "destination": "/api"
     }
   ]
 }

@@ -4,13 +4,11 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-import authRoutes from './routes/auth.routes.js';
-import userRoutes from './routes/user.routes.js';
-import recipeRoutes from './routes/recipe.route.js';
-import { errorHandler } from './middleware/error.middleware.js';
+import authRoutes from '../routes/auth.routes.js';
+import userRoutes from '../routes/user.routes.js';
+import recipeRoutes from '../routes/recipe.route.js';
+import { errorHandler } from '../middleware/error.middleware.js';
 
 dotenv.config();
 
