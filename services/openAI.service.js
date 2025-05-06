@@ -87,6 +87,54 @@ async function generateRecipes(ingredients, preferences) {
   }
 }
 
+async function generateDailyRecommendations(preferences = []) {
+  try {
+    const preferenceList = preferences.join(', ') || 'any';
+    const prompt = `
+Generate 3 diverse and creative ${preferenceList} recipes suitable for today. 
+Respond in the following JSON format without markdown or code blocks:
+
+[
+  {
+    "id": "...",
+    "name": "...",
+    "description": "...",
+    "cookTime": "...",
+    "calories": "...",
+    "ingredients": [{ "ingredient-name": "amount" }],
+    "steps": ["...", "..."]
+  }
+]
+`;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a recipe generator.' },
+        { role: 'user', content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 1000,
+    });
+
+    const content = response.choices?.[0]?.message?.content || '[]';
+    const recipes = JSON.parse(content);
+
+    if (!Array.isArray(recipes) || recipes.length === 0) {
+      return { recipes: [], error: 'No recommendations could be generated. Try again later.' };
+    }
+
+    const recipesWithImageURLs = await pexelsService.attachImagesToRecipes(recipes);
+    return { recipes: recipesWithImageURLs };
+  } catch (err) {
+    console.error(err);
+    return {
+      recipes: [],
+      error: 'Failed to generate daily recommendations. Please try again later.',
+    };
+  }
+}
+
 async function getUserFoodPreferences() {
   try {
     const preferences = ['vegan', 'vegetarian', 'non-veg', 'gluten-free', 'keto', 'dairy-free'];
@@ -97,4 +145,9 @@ async function getUserFoodPreferences() {
   }
 }
 
-export default { scanIngredientsFromImage, generateRecipes, getUserFoodPreferences };
+export default {
+  scanIngredientsFromImage,
+  generateRecipes,
+  generateDailyRecommendations,
+  getUserFoodPreferences,
+};

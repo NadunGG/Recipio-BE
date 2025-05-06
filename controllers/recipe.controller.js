@@ -39,9 +39,7 @@ const recommendedRecipes = [
   },
 ];
 
-export const getRecommendedRecipes = async (req, res) => {
-  res.status(200).json(recommendedRecipes);
-};
+
 
 export const searchRecipes = async (req, res) => {
   const { query } = req.query;
@@ -75,6 +73,15 @@ export const generateRecipes = async (req, res) => {
   const { ingredients, preferences } = req.body;
 
   const { recipes, error } = await openAIService.generateRecipes(ingredients, preferences);
+
+  if (error) return res.status(400).json({ error });
+  return res.json({ recipes });
+};
+
+export const getRecommendedRecipes = async (req, res) => {
+  const { preferences } = req.body;
+
+  const { recipes, error } = await openAIService.generateDailyRecommendations(preferences);
 
   if (error) return res.status(400).json({ error });
   return res.json({ recipes });
