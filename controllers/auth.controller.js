@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../config/firebase.config.js';
 import { updateProfile } from 'firebase/auth';
+import { JWT_SECRET } from '../config/common.config.js';
 import jwt from 'jsonwebtoken';
 
 // Register a new user
@@ -20,7 +21,7 @@ export const register = async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { uid: user.uid, email: user.email, name },
-      process.env.JWT_SECRET || 'your-secret-key',
+      JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
 
@@ -65,7 +66,7 @@ export const login = async (req, res) => {
         email: user.email,
         name: user.displayName,
       },
-      process.env.JWT_SECRET || 'your-secret-key',
+      JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
 
