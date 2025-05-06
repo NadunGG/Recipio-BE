@@ -2,6 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { initializeApp as initializeAdminApp, cert } from 'firebase-admin/app';
 import { getAuth as getAdminAuth } from 'firebase-admin/auth';
+import { getStorage } from 'firebase-admin/storage';
+
 import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -26,6 +28,7 @@ const auth = getAuth(app);
 
 let adminApp;
 let adminAuth;
+let bucket;
 
 try {
   if (FIREBASE_SERVICE_ACCOUNT) {
@@ -33,12 +36,14 @@ try {
 
     adminApp = initializeAdminApp({
       credential: cert(serviceAccount),
+      storageBucket: FIREBASE_STORAGE_BUCKET,
     });
 
     adminAuth = getAdminAuth(adminApp);
+    bucket = getStorage().bucket();
   }
 } catch (error) {
   console.error('Error initializing Firebase Admin:', error);
 }
 
-export { auth, adminAuth };
+export { auth, adminAuth, bucket };
