@@ -1,4 +1,5 @@
 import openAIService from '../services/openAI.service.js';
+import { MOCK_RESPONSES } from '../config/common.config.js';
 
 const recommendedRecipes = [
   {
@@ -178,29 +179,41 @@ export const createRecipe = async (req, res) => {
 /* new */
 export const scanIngredients = async (req, res) => {
   const base64Image = req.body.image;
+  
+  if (MOCK_RESPONSES) {
+    return  res.json({ingredients: scanMock })
+  }
+  
+  const { ingredients, error } = await openAIService.scanIngredientsFromImage(base64Image);
 
-  // const { ingredients, error } = await openAIService.scanIngredientsFromImage(base64Image);
-
-  // if (error) return res.status(400).json({ error });
-  return res.json({ ingredients: scanMock });
+  if (error) return res.status(400).json({ error });
+  return res.json({ ingredients });
 };
 
 export const generateRecipes = async (req, res) => {
   const { ingredients, preferences } = req.body;
+  
+  if (MOCK_RESPONSES) {
+    return  res.json({ recipes: generateMock })
+  }
 
-  // const { recipes, error } = await openAIService.generateRecipes(ingredients, preferences);
+  const { recipes, error } = await openAIService.generateRecipes(ingredients, preferences);
 
-  // if (error) return res.status(400).json({ error });
-  return res.json({ recipes: generateMock });
+  if (error) return res.status(400).json({ error });
+  return res.json({ recipes });
 };
 
 export const getRecommendedRecipes = async (req, res) => {
   const { preferences } = req.body;
 
-  // const { recipes, error } = await openAIService.generateDailyRecommendations(preferences);
+  if (MOCK_RESPONSES) {
+    return  res.json({recipes: generateMock })
+  }
 
-  // if (error) return res.status(400).json({ error });
-  return res.json({ recipes: generateMock });
+  const { recipes, error } = await openAIService.generateDailyRecommendations(preferences);
+
+  if (error) return res.status(400).json({ error });
+  return res.json({ recipes });
 };
 
 export const getPreferences = async (_req, res) => {

@@ -12,3 +12,4 @@ export const FIREBASE_SERVICE_ACCOUNT = process.env.FIREBASE_SERVICE_ACCOUNT;
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 export const PEXELS_API_KEY = process.env.PEXELS_API_KEY;
 export const JWT_SECRET = process.env.JWT_SECRET;
+export const MOCK_RESPONSES = process.env.MOCK === 'true' ? true : false;
