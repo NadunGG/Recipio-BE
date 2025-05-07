@@ -63,7 +63,7 @@ async function generateRecipes(ingredients, preferences) {
   `;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4.1-nano-2025-04-14',
+      model: 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: 'You are a recipe generator.' },
         { role: 'user', content: prompt },
@@ -108,7 +108,7 @@ Respond in the following JSON format without markdown or code blocks:
 `;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4.1-nano-2025-04-14',
+      model: 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: 'You are a recipe generator.' },
         { role: 'user', content: prompt },
