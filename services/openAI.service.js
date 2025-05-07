@@ -56,7 +56,7 @@ async function generateRecipes(ingredients, preferences) {
       "description": "...",
       "cookTime": "...",
       "calories": "...",
-      "ingredients": [{ "ingredient-name": "amount" }],
+      "ingredients": { "ingredient-name": "amount", ... },
       "steps": ["...", "..."]
     }
   ]
@@ -101,7 +101,7 @@ Respond in the following JSON format without markdown or code blocks:
     "description": "...",
     "cookTime": "...",
     "calories": "...",
-    "ingredients": [{ "ingredient-name": "amount" }],
+    "ingredients": { "ingredient-name": "amount", ... },
     "steps": ["...", "..."]
   }
 ]
