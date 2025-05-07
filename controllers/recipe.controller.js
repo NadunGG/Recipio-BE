@@ -181,9 +181,9 @@ export const scanIngredients = async (req, res) => {
   const base64Image = req.body.image;
   
   if (MOCK_RESPONSES) {
-    return  res.json({ingredients: scanMock })
+    return  res.json({ ingredients: scanMock })
   }
-  
+
   const { ingredients, error } = await openAIService.scanIngredientsFromImage(base64Image);
 
   if (error) return res.status(400).json({ error });
@@ -207,7 +207,7 @@ export const getRecommendedRecipes = async (req, res) => {
   const { preferences } = req.body;
 
   if (MOCK_RESPONSES) {
-    return  res.json({recipes: generateMock })
+    return  res.json({ recipes: generateMock })
   }
 
   const { recipes, error } = await openAIService.generateDailyRecommendations(preferences);
